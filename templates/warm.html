@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>{{SHOP_NAME}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #6B4226;
+  --primary-light: #8B6914;
+  --secondary: #D4A574;
+  --accent: #C8553D;
+  --bg: #FEF9F3;
+  --bg-warm: #F5EDE3;
+  --text: #3E2723;
+  --text-light: #795548;
+  --text-muted: #A1887F;
+  --white: #FFFDF9;
+  --card-shadow: 0 2px 20px rgba(62,39,35,0.08);
+  --card-radius: 18px;
+  --nav-height: 68px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding-bottom: calc(var(--nav-height) + 16px);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ====== PAGE SYSTEM ====== */
+.page { display: none; animation: fadeUp 0.4s ease; }
+.page.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== BOTTOM NAV ====== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  height: var(--nav-height);
+  background: var(--white);
+  border-top: 1px solid rgba(62,39,35,0.06);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 100;
+  box-shadow: 0 -4px 24px rgba(62,39,35,0.06);
+  backdrop-filter: blur(12px);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  padding: 8px 20px;
+  border-radius: 14px;
+  transition: all 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.nav-item svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 1.8;
+  transition: all 0.25s ease;
+}
+
+.nav-item span {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  transition: color 0.25s ease;
+}
+
+.nav-item.active {
+  background: linear-gradient(135deg, rgba(107,66,38,0.08), rgba(212,165,116,0.12));
+}
+
+.nav-item.active svg { stroke: var(--primary); }
+.nav-item.active span { color: var(--primary); }
+
+/* ====== HOME PAGE ====== */
+
+/* -- Hero / Brand Banner -- */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  background: linear-gradient(165deg, var(--primary) 0%, #4A2C17 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 32px 24px;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -30%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(212,165,116,0.12);
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  left: -20%;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(200,85,61,0.08);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  color: var(--secondary);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  width: fit-content;
+  border: 1px solid rgba(255,255,255,0.08);
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--secondary);
+  stroke: none;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.05;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+  letter-spacing: -0.01em;
+}
+
+.hero-tagline {
+  font-size: 15px;
+  color: rgba(255,253,249,0.7);
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+}
+
+/* -- Section Titles -- */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 24px;
+  margin: 32px 0 16px;
+}
+
+.section-title h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.section-title .line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--secondary) 0%, transparent 100%);
+}
+
+/* -- Promo Banner / Event Poster -- */
+.promo-banner {
+  margin: 0 20px;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--card-shadow);
+}
+
+.promo-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.promo-banner .promo-placeholder {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--secondary) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.promo-banner .promo-placeholder span {
+  color: var(--white);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.promo-banner .promo-placeholder small {
+  color: rgba(255,253,249,0.7);
+  font-size: 13px;
+}
+
+/* -- About Section -- */
+.about-card {
+  margin: 0 20px;
+  padding: 24px;
+  background: var(--white);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(62,39,35,0.04);
+}
+
+.about-card p {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--text-light);
+}
+
+.about-card .highlight {
+  display: inline;
+  background: linear-gradient(180deg, transparent 60%, rgba(212,165,116,0.25) 60%);
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* -- Quick Info Pills -- */
+.info-pills {
+  display: flex;
+  gap: 10px;
+  padding: 0 20px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: var(--white);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-light);
+  box-shadow: 0 2px 12px rgba(62,39,35,0.05);
+  border: 1px solid rgba(62,39,35,0.04);
+  white-space: nowrap;
+}
+
+.pill svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--primary);
+  fill: none;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
+/* -- Contact Footer -- */
+.contact-section {
+  margin: 32px 20px 16px;
+  padding: 24px;
+  background: var(--white);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(62,39,35,0.04);
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(62,39,35,0.05);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s;
+}
+
+.contact-item:last-child { border-bottom: none; }
+.contact-item:active { opacity: 0.7; }
+
+.contact-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--bg-warm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--primary);
+  fill: none;
+  stroke-width: 2;
+}
+
+.contact-text { flex: 1; }
+.contact-text .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.contact-text .value {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* ====== MENU PAGE ====== */
+
+.menu-header {
+  padding: 28px 24px 20px;
+  background: var(--white);
+  border-bottom: 1px solid rgba(62,39,35,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.menu-header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+/* Category filter tabs */
+.cat-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
+}
+.cat-tabs::-webkit-scrollbar { display: none; }
+
+.cat-tab {
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg);
+  border: 1.5px solid rgba(62,39,35,0.06);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cat-tab.active {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+/* Menu Items Grid */
+.menu-list {
+  padding: 16px 20px;
+}
+
+.menu-category {
+  margin-bottom: 28px;
+}
+
+.menu-category-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 14px;
+  padding-left: 4px;
+}
+
+.menu-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px;
+  background: var(--white);
+  border-radius: 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 8px rgba(62,39,35,0.04);
+  border: 1px solid rgba(62,39,35,0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menu-item:active {
+  transform: scale(0.985);
+  box-shadow: 0 1px 4px rgba(62,39,35,0.06);
+}
+
+.menu-item-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 14px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--bg-warm);
+}
+
+.menu-item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.menu-item-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.menu-item-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.menu-item-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  font-family: 'Cormorant Garamond', serif;
+}
+
+/* ====== UTILITY ====== */
+.spacer-sm { height: 8px; }
+.spacer-md { height: 16px; }
+.spacer-lg { height: 28px; }
+
+</style>
+</head>
+<body>
+
+<!-- ==================== HOME PAGE ==================== -->
+<div class="page active" id="page-home">
+<!-- {{HOME_BLOCKS}} -->
+</div>
+
+<!-- ==================== MENU PAGE ==================== -->
+<div class="page" id="page-menu">
+
+  <div class="menu-header">
+    <h1>Our Menu</h1>
+    <div class="cat-tabs" id="cat-tabs">
+      <div class="cat-tab active" data-cat="all">All</div>
+      <!-- {{CATEGORY_TABS}} -->
+    </div>
+  </div>
+
+  <div class="menu-list" id="menu-list">
+    <!-- {{MENU_ITEMS}} -->
+  </div>
+
+</div>
+
+<!-- ==================== BOTTOM NAV ==================== -->
+<nav class="bottom-nav">
+  <div class="nav-item active" data-page="home" onclick="switchPage('home')">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Home</span>
+  </div>
+  <div class="nav-item" data-page="menu" onclick="switchPage('menu')">
+    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+    <span>Menu</span>
+  </div>
+</nav>
+
+<script>
+// ====== PAGE NAVIGATION ======
+function switchPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelector('.nav-item[data-page="' + page + '"]').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ====== CATEGORY FILTER ======
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('cat-tab')) {
+    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+    e.target.classList.add('active');
+    var cat = e.target.getAttribute('data-cat');
+    document.querySelectorAll('.menu-category').forEach(function(section) {
+      if (cat === 'all' || section.getAttribute('data-cat') === cat) {
+        section.style.display = 'block';
+      } else {
+        section.style.display = 'none';
+      }
+    });
+  }
+});
+</script>
+
+</body>
+</html>
